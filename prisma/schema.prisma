@@ -21,7 +21,36 @@ model Session {
 }
 
 model User {
-  id Int @id @default(autoincrement())
-  email String
-  passowrd String
+  id String @id @default(uuid())
+  email String @unique
+  password String
+  folders Folder[]
+  files   File[]  @relation("UserFiles")
+
+}
+
+model Folder {
+  id String @id @default(uuid())
+  name String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
+  files File[]
+  subfolders  Folder[] @relation("SubfolderRelation")
+  parentId    String?
+  parent      Folder?  @relation("SubfolderRelation", fields: [parentId], references: [id])
+}
+
+model File {
+  id String @id @default(uuid())
+  name String
+  createdAt DateTime
+  updatedAt DateTime
+  blob Bytes
+  folder Folder? @relation(fields: [folderId], references: [id])
+  folderId String?
+  owner       User      @relation("UserFiles", fields: [ownerId], references: [id])
+  ownerId     String
+
 }

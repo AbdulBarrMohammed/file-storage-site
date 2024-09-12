@@ -2,52 +2,72 @@
  /* HEADER */
 
  .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    align-items: center;
-    position: fixed; /* Fixes the header to the top of the viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
+   display: flex;
+   justify-content: space-between;
+   padding: 10px 20px;
+   align-items: center;
+   position: fixed; /* Fixes the header to the top of the viewport */
+   top: 0;
+   left: 0;
+   width: 100%;
+   background-color: black; /* Default color */
+   color: white;
 
-    color: black;
+   transition: background-color 0.3s ease, color 0.3s ease;
+   /* border-bottom: 1px solid   rgb(224, 225, 228); */
 
- }
+}
 
+.header.scrolled {
+   background-color: white; /* Color after scrolling */
+   color: black; /* Text color after scrolling */
 
+}
 
- .left-header {
-    display: flex;
-    align-items: center;
-    gap: 50px;
- }
+.left-header {
+   display: flex;
+   align-items: center;
+   gap: 50px;
+}
 
- .right-header ul, .left-header ul {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-    list-style: none;
+.left-header h2 {
+   font-family: "Montserrat", sans-serif;
+}
+.right-header ul, .left-header ul {
+   display: flex;
+   gap: 25px;
+   align-items: center;
+   list-style: none;
 
- }
+}
 .left-header a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+   display: flex;
+   align-items: center;
+   gap: 10px;
 }
 .left-header a:hover {
-    cursor: pointer;
+   cursor: pointer;
 }
 
- header a {
-    transition: 0.3s;
-    text-decoration: none;
-    color: white;
+header a {
+   transition: 0.3s;
+   text-decoration: none;
+   color: white;
 
- }
+}
 
+.header.scrolled a {
+   color: black; /* Link color after scrolling */
+}
+
+/* Header styles when scrolled */
+.header.scrolled {
+   background-color: white; /* Color after scrolling */
+   color: black; /* Text color after scrolling */
+   border-bottom: 1px solid rgb(224, 225, 228);
+}
 
 .right-header a:hover, .left-header-left-links a:hover{
-    color: #6B63F6;
-    cursor: pointer;
- }
+   color: #6B63F6;
+   cursor: pointer;
+}

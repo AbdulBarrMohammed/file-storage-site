@@ -39,11 +39,6 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/", authRouter);
 
-//module.exports = { passport };
-// script.js
-
-
-
 
 module.exports = app;
 

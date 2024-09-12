@@ -7,12 +7,38 @@
     <title>Document</title>
 </head>
 <body>
-    <%- include('./header.ejs') %>
+    <% if (user) {%>
+        <header class="header">
+            <div class="left-header">
+                <a href="/">
+                    <img src="/images/fox-4-svgrepo-com.svg">
+                    <h2>SortiFox</h2>
+                </a>
+                <ul class="left-header-left-links">
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Solutions</a></li>
+                    <li><a href="">Enterprise</a></li>
+                    <li><a href="">App</a></li>
+                </ul>
+            </div>
+            <div class="right-header">
+                <ul>
+                    <li><a href="/log-out">Log out</a></li>
+                    <li><div class="profile"> <p><%- user.email.charAt(0).toUpperCase() %></p> </div></li>
+
+                </ul>
+            </div>
+        </header>
+    <% } else { %>
+        <%- include('./header.ejs') %>
+    <%}%>
+
+
     <div class="library-container">
 
         <div class="sidebar">
             <div class="sidebar-top">
-                <h2>My Files</h2>
+                    <h2>My Files</h2>
             </div>
             <ul>
                 <li>

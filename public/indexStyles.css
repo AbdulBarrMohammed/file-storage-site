@@ -12,76 +12,6 @@
     padding-top: 60px;
  }
 
- /* HEADER */
-
- .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 20px;
-    align-items: center;
-    position: fixed; /* Fixes the header to the top of the viewport */
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: black; /* Default color */
-    color: white;
-
-    transition: background-color 0.3s ease, color 0.3s ease;
-    /* border-bottom: 1px solid   rgb(224, 225, 228); */
-
- }
-
-.header.scrolled {
-    background-color: white; /* Color after scrolling */
-    color: black; /* Text color after scrolling */
-
-}
-
- .left-header {
-    display: flex;
-    align-items: center;
-    gap: 50px;
- }
-
- .right-header ul, .left-header ul {
-    display: flex;
-    gap: 25px;
-    align-items: center;
-    list-style: none;
-
- }
-.left-header a {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.left-header a:hover {
-    cursor: pointer;
-}
-
- header a {
-    transition: 0.3s;
-    text-decoration: none;
-    color: white;
-
- }
-
- .header.scrolled a {
-    color: black; /* Link color after scrolling */
-}
-
-/* Header styles when scrolled */
-.header.scrolled {
-    background-color: white; /* Color after scrolling */
-    color: black; /* Text color after scrolling */
-    border-bottom: 1px solid rgb(224, 225, 228);
-}
-
-.right-header a:hover, .left-header-left-links a:hover{
-    color: #6B63F6;
-    cursor: pointer;
- }
-
 
  /* CONTAINER */
 
@@ -95,7 +25,8 @@
  }
 
  .container h1 {
-    font-size: 3.5rem;
+    font-size: 3.2rem;
+    font-family: "Montserrat", sans-serif;
  }
 
  .call-to-action {
@@ -111,6 +42,7 @@
     text-align: center;
  }
 
+
  .sub-title {
     text-align: center;
     width: 60%; /* Optional: Limit the width to make it more visually appealing */
@@ -123,6 +55,7 @@
 
 .sub-title h2 {
     font-weight: lighter;
+
 }
 
 .call-to-action button{
@@ -162,6 +95,7 @@
 
 .description h2 {
     font-size: 2.5rem;
+    font-family: "Montserrat", sans-serif;
 }
 
 .college-box {
@@ -193,12 +127,13 @@
     justify-content: center;
     align-items: center;
     padding: 100px 10px;
-    gap: 50px;
+    gap: 70px;
 
 }
 .referrals h2 {
     font-size: 2.5rem;
     text-align: center;
+    font-family: "Montserrat", sans-serif;
 }
 
 .refferal-content {
@@ -249,12 +184,12 @@
     padding: 100px 0;
     background-color: rgb(245, 247, 249);
     width: 100%;
-    gap: 50px;
+    gap: 70px;
 
 }
 
 .description-two h2 {
-
+    font-family: "Montserrat", sans-serif;
     font-size: 2.5rem;
 
 
