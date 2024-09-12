@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/formStyle.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./header.ejs') %>
+    <div class="content">
+        <h2>Log in or sign up</h2>
+        <form action="" method="POST">
+            <div class="form-containers">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="john@gmail.com" />
+            </div>
+            <div class="form-containers">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" placeholder="password" />
+            </div>
+
+            <button>Log in</button>
+            <p style="text-align: center;">Don't have an account? <a href="/sign-uo">Sign up here</a></p>
+        </form>
+
+    </div>
+
+
+</body>
+</html>

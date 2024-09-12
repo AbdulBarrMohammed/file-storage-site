@@ -1,0 +1,107 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/indexStyles.css">
+    <link rel="stylesheet" href="/libraryStyle.css">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('./header.ejs') %>
+    <div class="library-container">
+
+        <div class="sidebar">
+            <div class="sidebar-top">
+                <h2>My Files</h2>
+            </div>
+            <ul>
+                <li>
+                    <div class="library-links">
+                        <img src="/images/file-outline.svg"/>
+                        <a>Files</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="library-links">
+                        <img src="/images/downloadBtn.svg"/>
+                        <a>Downloaded files</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="library-links">
+                        <img src="/images/star-outline.svg"/>
+                        <a>Starred files</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="library-links">
+                        <img src="/images/share-variant.svg"/>
+                        <a>Shared files</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="library-links">
+                        <img src="/images/trash.svg"/>
+                        <a>Deleted files</a>
+                    </div>
+                </li>
+
+
+            </ul>
+        </div>
+        <div class="library-files-container">
+            <div class="library-header-buttons">
+                <a>
+                    <div class="button-container">
+                        <img src="/images/plus.svg">
+                        <p>Create folder</p>
+                    </div>
+
+                </a>
+                <a>
+                    <div class="button-container upload">
+                        <img src="/images/upload.svg">
+                        <p>Upload file</p>
+                    </div>
+
+                </a>
+
+
+            </div>
+            <h2>All Files</h2>
+
+            <section class="table__body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> Size </th>
+                            <th> Created </th>
+                            <th> Last Updated </th>
+                            <th> Options </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td> <a>  <img src="/images/folder-outline.svg"> New folder </a> </td>
+                            <td> 56 Btyes </td>
+                            <td> 2 days ago </td>
+                            <td> Yesterday </td>
+                            <td> ... </td>
+                        </tr>
+                        <tr>
+                            <td> <a>  <img src="/images/folder-outline.svg"> New folder </a> </td>
+                            <td> 56 Btyes </td>
+                            <td> 2 days ago </td>
+                            <td> Yesterday </td>
+                            <td> ... </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+
+    </div>
+
+</body>
+</html>

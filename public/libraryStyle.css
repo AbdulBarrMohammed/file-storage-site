@@ -1,0 +1,171 @@
+.library-container {
+    display: flex;
+
+
+
+}
+
+.sidebar {
+
+    background-color: rgb(245, 247, 249);
+    height: 100vh;
+    border-right: 1px solid rgb(235, 234, 231);
+    margin-top: 10px;
+}
+
+ul {
+    list-style: none;
+}
+.sidebar li {
+    padding-left: 20px;
+    padding-right: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+
+
+}
+
+.sidebar li:hover {
+    background-color: rgb(230, 232, 234);
+    width: 100%;
+
+}
+
+.library-links img {
+    height: 20px;
+}
+
+.library-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-top {
+    padding-left: 20px;
+    padding-top: 50px;
+    padding-bottom: 30px;
+}
+
+.library-files-container {
+
+    padding: 50px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-container {
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 25px 30px;
+    transition: 0.7s;
+}
+
+.button-container.upload {
+    border: 1px dashed gray;
+}
+
+.library-header-buttons {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 10px;
+}
+
+.button-container:hover {
+    background-color: black;
+    color: white;
+
+}
+
+.button-container:hover img {
+    filter: invert(100%) grayscale(0%) contrast(100%) brightness(100%);
+}
+
+
+.button-container img {
+    height: 30px;
+}
+
+/* TABLE */
+td img {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: .2rem;
+
+}
+
+table, th, td {
+    border-collapse: collapse;
+    padding: 1rem;
+    width: 100%;
+
+}
+
+.table__body {
+
+    max-height: calc(89% - .8rem);
+    margin: .8rem auto;
+    border-radius: .6rem;
+    border: 1px solid rgb(211, 213, 218);
+    overflow: auto;
+
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+thead th {
+    background-color: rgb(230, 232, 234);
+}
+
+td {
+    padding-left: 80px;
+
+}
+
+tbody tr {
+    border-top: 1px solid rgb(211, 213, 218);
+}
+
+td a {
+    color: #6B63F6;
+
+}
+
+tr:hover {
+    cursor: pointer;
+    background-color:  rgb(245, 247, 249);
+
+}
+
+td a:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+/*
+table {
+    border: 1px solid rgb(211, 213, 218);
+    border-radius: 10px;
+}
+
+
+table th {
+    text-align: left;
+    background-color:  rgb(230, 232, 234);
+
+
+}
+
+table td {
+    padding: 4px 50px;
+
+}
+*/

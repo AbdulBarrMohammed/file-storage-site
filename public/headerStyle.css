@@ -1,0 +1,53 @@
+
+ /* HEADER */
+
+ .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    position: fixed; /* Fixes the header to the top of the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+
+    color: black;
+
+ }
+
+
+
+ .left-header {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+ }
+
+ .right-header ul, .left-header ul {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    list-style: none;
+
+ }
+.left-header a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.left-header a:hover {
+    cursor: pointer;
+}
+
+ header a {
+    transition: 0.3s;
+    text-decoration: none;
+    color: white;
+
+ }
+
+
+.right-header a:hover, .left-header-left-links a:hover{
+    color: #6B63F6;
+    cursor: pointer;
+ }
