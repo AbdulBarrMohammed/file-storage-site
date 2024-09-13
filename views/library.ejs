@@ -77,13 +77,22 @@
         </div>
         <div class="library-files-container">
             <div class="library-header-buttons">
-                <a>
-                    <div class="button-container">
+                    <div class="button-container" id="open-modal">
                         <img src="/images/plus.svg">
                         <p>Create folder</p>
                     </div>
 
-                </a>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <h2>Create Folder</h2>
+                        <form action="/library/create" method="POST">
+                            <label for="folder-name">Folder Name:</label>
+                            <input type="text" id="folderName" name="folderName" required>
+                            <button type="submit">Create</button>
+                        </form>
+                    </div>
+                </div>
                 <a>
                     <div class="button-container upload">
                         <img src="/images/upload.svg">
@@ -108,6 +117,22 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <% function displayTimeAgo(createdAt) { %>
+                            <%= formatDistanceToNow(new Date(createdAt), { addSuffix: true }) %>
+                          <% } %>
+                        <% folders.map((folder, index) => { %>
+                            <%
+
+                            %>
+
+                            <tr>
+                                <td> <a>  <img src="/images/folder-outline.svg"> <%= folder.name %> </a> </td>
+                                <td> - </td>
+                                <td> <%= displayTimeAgo(folder.createdAt) %> </td>
+                                <td> Yesterday </td>
+                                <td> ... </td>
+                            </tr>
+                         <% }) %>
                         <tr>
                             <td> <a>  <img src="/images/folder-outline.svg"> New folder </a> </td>
                             <td> 56 Btyes </td>
@@ -128,6 +153,40 @@
         </div>
 
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('myModal');
+            const btn = document.getElementById('open-modal');
+            const span = document.getElementsByClassName('close')[0];
+
+            // Open the modal
+            btn.onclick = function() {
+                modal.style.display = 'block';
+            }
+
+            // Close the modal
+            span.onclick = function() {
+                modal.style.display = 'none';
+            }
+
+            // Close the modal when clicking outside of it
+            window.onclick = function(event) {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            }
+
+            // Handle form submission
+            document.getElementById('create-folder-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const folderName = document.getElementById('folder-name').value;
+                console.log('Folder Name:', folderName);
+                // Here you can add AJAX code to send the form data to the server
+                modal.style.display = 'none'; // Close the modal after submission
+            });
+        });
+        </script>
 
 </body>
 </html>

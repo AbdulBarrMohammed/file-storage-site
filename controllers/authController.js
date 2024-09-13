@@ -32,17 +32,18 @@ async function displayIndex(req, res) {
 }
 
 async function signUpGet(req, res) {
-    res.render("views/signUpForm");
+    res.render("views/forms/signUpForm");
 }
 
 async function logInGet(req, res) {
-    res.render("views/logInForm");
+    res.render("views/forms/logInForm");
 }
 
+/*
 async function displayLibrary(req, res) {
     res.render("views/library", { user: req.user })
 }
-
+ */
 
 
 //Post
@@ -164,6 +165,7 @@ passport.deserializeUser(async (id, done) => {
     }
   });
 
+  /*
   async function logOutGet(req, res){
     req.logout((err) => {
       if (err) {
@@ -172,7 +174,7 @@ passport.deserializeUser(async (id, done) => {
       res.redirect("/");
     });
 
-  }
+  } */
 
 
 
@@ -181,9 +183,8 @@ module.exports =  {
     displayIndex,
     signUpGet,
     logInGet,
-    displayLibrary,
+
     signUpPost,
-    logOutGet,
     logInPost
 
 

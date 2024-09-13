@@ -78,6 +78,11 @@
     gap: 10px;
 }
 
+.call-to-action a {
+    text-decoration: none;
+    color: black;
+}
+
 .description {
     display: flex;
     flex-direction: column;
@@ -91,6 +96,8 @@
 
 
 }
+
+
 
 
 .description h2 {

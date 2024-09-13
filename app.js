@@ -3,6 +3,8 @@ const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
 const authRouter = require("./routes/authRouter");
+const libraryRouter = require("./routes/libraryRouter");
+const folderRouter = require("./routes/folderRouter")
 
 const app = express();
 app.set("views", __dirname);
@@ -38,6 +40,8 @@ app.use(passport.session());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/", authRouter);
+app.use("/", libraryRouter);
+app.use("/", folderRouter)
 
 
 module.exports = app;
