@@ -34,12 +34,41 @@ async function getUser(email) {
 
     const folders = await prisma.folder.findMany({
       where: {
-        authorId: user.id
+        authorId: user.id,
+        parentId: null
       }
     })
     return folders;
 
   }
+
+  async function deleteFolder( id ) {
+
+
+
+   const deleteFolder = await prisma.folder.delete({
+    where: {
+      id: id
+    },
+  })
+
+  return deleteFolder;
+  /*
+    await prisma.folder.deleteMany({
+      where: {
+        parentId: id // Delete subfolders
+      }
+    });
+
+    // Then, delete the parent folder
+    await prisma.folder.delete({
+      where: {
+        id: id// Delete the parent folder itself
+      }
+    }); */
+  }
+
+
 
 
   async function insertNewFolder({ email, folderName, createdAt, parentId = null }) {
@@ -73,12 +102,90 @@ async function getUser(email) {
     }
   }
 
+  async function updateFolder(id, newFolderName) {
+
+    const updateFolder = await prisma.folder.update({
+      where: {
+        id: id
+      },
+      data: {
+        name: newFolderName,
+      }
+    });
+
+    return updateFolder
+
+
+  }
+
+  async function insertNewSubFolder({ subFolderName, createdAt, parentId, email }) {
+    try {
+      // Debugging: Log input parameters
+      console.log('folderName:',subFolderName);
+      console.log('createdAt:', createdAt);
+      console.log('parentId:', parentId);
+
+      const user = await prisma.user.findUnique({
+        where: { email: email }
+      });
+
+      if (!subFolderName| !createdAt || !parentId) {
+        throw new Error('Missing required fields: folderName, createdAt, or parentId');
+      }
+
+      const newSubFolder = await prisma.folder.create({
+        data: {
+          name: subFolderName,
+          createdAt: createdAt,
+          parent: {
+            connect: { id: parentId }
+          },
+          author: {
+            connect: { id: user.id } // Link the folder to the author (user who created it)
+          }
+        }
+      });
+
+      console.log('Successfully created new subfolder:', newSubFolder);
+      return newSubFolder;
+    } catch (error) {
+      console.error('Error inserting new subfolder:', error);
+      throw new Error('Failed to create subfolder');
+    }
+  }
+
+  async function getFolder(id) {
+    const folder = await prisma.folder.findUnique({
+      where: { id: id }
+    });
+
+    return folder;
+
+  }
+
+  async function getAllSubFolders(parentId) {
+    // where parentid = parentid
+
+
+   const folders = await prisma.folder.findMany({
+     where: {
+       parentId: parentId
+     }
+   })
+   return folders;
+
+  }
 
   module.exports = {
     insertNewUsers,
     getUser,
     getUserById,
     insertNewFolder,
-    getAllFolders
+    getAllFolders,
+    deleteFolder,
+    updateFolder,
+    insertNewSubFolder,
+    getFolder,
+    getAllSubFolders
     // other database functions
   };

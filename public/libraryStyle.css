@@ -200,7 +200,7 @@ thead th {
 }
 
 td {
-    padding-left: 80px;
+    padding-left: 60px;
 
 
 }
@@ -211,6 +211,10 @@ tbody tr {
 
 td a {
     color: #6B63F6;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 2px;
 
 }
 
@@ -224,28 +228,11 @@ td a:hover {
     cursor: pointer;
     text-decoration: underline;
 }
+
+
 /*
-table {
-    border: 1px solid rgb(211, 213, 218);
-    border-radius: 10px;
-}
-
-
-table th {
-    text-align: left;
-    background-color:  rgb(230, 232, 234);
-
-
-}
-
-table td {
-    padding: 4px 50px;
-
-}
-*/
-
-.modal {
-    display: none; /* Hidden by default */
+.folderModal {
+    display: none; /* Hidden by default
     position: fixed;
     z-index: 1;
     left: 0;
@@ -255,3 +242,125 @@ table td {
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
 }
+
+
+.folder-modal-content {
+
+    background-color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+
+
+} */
+
+
+.folderModal, .modal.edit {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+
+
+    background-color: rgba(0, 0, 0, 0.5); /* Background overlay (semi-transparent) */
+    height: 100%; /* Full height of the page */
+    overflow: auto; /* Enables scrolling if the content is too large */
+}
+
+/* Modal content */
+.folder-modal-content, .modal-content.edit {
+    background-color: white;
+    margin: auto;
+
+    border-radius: 10px;
+    margin-top: 300px;
+
+    width: 100%;
+    max-width: 500px; /* Adjust as needed */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+hr {
+   width: 100%;
+   border: 0.5px solid gray;
+
+}
+
+.folder-form-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+}
+
+.optionsModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    overflow: auto;
+
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    overflow: auto;
+
+}
+
+input {
+    border: 1px solid rgb(204, 205, 208);
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    gap: 5px;
+
+ }
+
+ .folderModal form {
+    padding: 15px;
+ }
+
+ .folderModal form button, .edit-form-button button {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    color: white;
+
+    background-color: #6B63F6;
+
+ }
+ .folder-form-button, .edit-form-button {
+    display: flex;
+    justify-content: end;
+    padding-top: 20px;
+    padding-bottom: 10px;
+
+ }
+
+ .close {
+    padding-right: 10px;
+    font-size: 2rem;
+ }
+
+
+ .options-btn {
+    border: none;
+    background-color: inherit;
+ }

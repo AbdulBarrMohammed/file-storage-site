@@ -1,0 +1,126 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/indexStyles.css">
+    <link rel="stylesheet" href="/libraryStyle.css">
+    <title>Document</title>
+</head>
+<body>
+    <!--Modal to create new subfolder -->
+    <div id="newFolderModal" class="folderModal">
+        <div class="folder-modal-content">
+
+            <div class="folder-form-header">
+                <h2>Create Folder</h2>
+                <span class="close">&times;</span>
+            </div>
+
+            <hr>
+            <form action="/library/folder/createSubFolder/<%= folder.id %>" method="POST">
+                <div class="input-container">
+                    <label for="subFolderName">Name:</label>
+                    <input type="text" id="subFolderName" name="subFolderName" required placeholder="Folder name">
+                </div>
+                <div class="folder-form-button">
+                    <button type="submit">Create</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <% if (user) {%>
+        <header class="header">
+            <div class="left-header">
+                <a href="/">
+                    <img src="/images/fox-4-svgrepo-com.svg">
+                    <h2>SortiFox</h2>
+                </a>
+                <ul class="left-header-left-links">
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Solutions</a></li>
+                    <li><a href="">Enterprise</a></li>
+                    <li><a href="">App</a></li>
+                </ul>
+            </div>
+            <div class="right-header">
+                <ul>
+                    <li><a href="/log-out">Log out</a></li>
+                    <li><div class="profile"> <p><%- user.email.charAt(0).toUpperCase() %></p> </div></li>
+
+                </ul>
+            </div>
+        </header>
+    <% } else { %>
+        <%- include('./header.ejs') %>
+    <%}%>
+    <div class="library-container">
+        <%- include('./partials/librarySidebar.ejs') %>
+        <div class="library-files-container">
+            <%- include('./partials/libraryHeader.ejs') %>
+            <h2> <%- folder.name %> </h2>
+            <section class="table__body">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Name </th>
+                            <th> Size </th>
+                            <th> Created </th>
+                            <th> Last Updated </th>
+                            <th> Options </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% function displayTimeAgo(createdAt) { %>
+                            <%= formatDistanceToNow(new Date(createdAt), { addSuffix: true }) %>
+                          <% } %>
+                        <% subFolders.map((folder, index) => { %>
+                            <%
+
+                            %>
+                            <tr>
+                                <td> <a href="/library/folder/<%= folder.id %>">  <img src="/images/folder-outline.svg"> <%= folder.name %> </a> </td>
+                                <td> - </td>
+                                <td> <%= displayTimeAgo(folder.createdAt) %> </td>
+                                <td> <%= displayTimeAgo(folder.updatedAt) %> </td>
+                                <td>
+                                    <button class="options-btn" data-folder-id="<%= folder.id %>">...</button>
+                                </td>
+
+                            </tr>
+
+
+                         <% }) %>
+
+                    </tbody>
+                </table>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newFolderModal = document.getElementById('newFolderModal');
+            const openNewFolderModalBtn = document.getElementById('open-modal');
+            const newFolderModalCloseBtn = newFolderModal.querySelector('.close');
+            //const deleteFolderModal = document.getElementById('deleteFolderModal');
+
+            openNewFolderModalBtn.onclick = function() {
+                newFolderModal.style.display = 'block';
+            }
+
+            newFolderModalCloseBtn.onclick = function() {
+                newFolderModal.style.display = 'none';
+            }
+
+        });
+
+
+    </script>
+
+</body>
+</html>

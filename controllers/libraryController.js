@@ -22,10 +22,6 @@ async function logOutGet(req, res){
   async function displayLibrary(req, res) {
     const   { email }  = req.user;
     const folders = await db.getAllFolders(email);
-    //const timeAgo = `created ${displayTimeAgo(folders.createdAt)} ago`
-
-
-
     res.render("views/library", { user: req.user, folders: folders, formatDistanceToNow: formatDistanceToNow})
 }
 
