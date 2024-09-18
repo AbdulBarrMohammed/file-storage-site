@@ -28,8 +28,6 @@ async function createFolderPost(req, res) {
 async function deleteFolderPost(req, res) {
     //const { email } = req.user;
     const id = req.params.id;
-    const parentId  = req.params.id;
-    console.log(parentId)
     console.log('delete confirmed')
     console.log(id);
     await db.deleteFolder(id)

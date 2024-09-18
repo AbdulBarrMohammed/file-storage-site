@@ -81,7 +81,7 @@
 
 
     <div class="library-container">
-        <%- include('./partials/librarySidebar.ejs') %>
+       <%- include('./partials/librarySidebar.ejs') %>
         <div class="library-files-container">
             <%- include('./partials/libraryHeader.ejs') %>
             <h2>All Files</h2>
@@ -122,7 +122,6 @@
                                       </div>
                                 </td>
 
-
                                 <div id="editFolderModal<%= folder.id %>" class="modal edit">
                                     <div class="modal-content edit" id="editFolder-modal">
                                         <div class="folder-form-header">
@@ -146,6 +145,19 @@
 
 
                          <% }) %>
+                         <% files.map((file, index) => { %>
+                            <tr>
+                                <td> <a href="/library/file/<%= file.id %>">  <img src="/images/folder-outline.svg"> <%= file.name %> </a> </td>
+                                <td> <%= file.blob %> </td>
+                                <td > <%= displayTimeAgo(file.createdAt) %> </td>
+                                <td> <%= displayTimeAgo(file.updatedAt) %> </td>
+                                <td>
+                                    <button class="options-btn" data-folder-id="<%= file.id %>"> <img src="/images/dots-horizontal.svg"> </button>
+                                </td>
+
+
+                            </tr>
+                        <% }) %>
                     </tbody>
                 </table>
             </section>

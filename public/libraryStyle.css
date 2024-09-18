@@ -120,8 +120,8 @@ ul {
 
 .library-files-container {
 
-    padding: 50px;
-
+    padding: 20px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -168,39 +168,39 @@ td img {
 
 }
 
-table, th, td {
-    border-collapse: collapse;
-    padding: 1rem;
-    width: 100%;
 
+
+table, td, th {
+    padding: 1rem;
+    border-collapse: collapse;
+    text-align: left; /* Optional, adjust depending on your preference */
+    width: auto; /* Make sure individual cells don't have fixed width */
 }
+
 
 .table__body {
 
     max-height: calc(89% - .8rem);
-    margin: .8rem auto;
+    /*margin: .8rem auto; */
     border-radius: .6rem;
     border: 1px solid rgb(211, 213, 218);
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+    width: 100%;
     overflow: auto;
 
 }
 
 table {
     width: 100%;
-    table-layout: fixed;
+    /* table-layout: fixed; */
 
 }
 
 thead th {
     background-color: rgb(230, 232, 234);
+    width: auto;
 }
 
-td {
-    padding-left: 65px;
-
-
-}
 
 tbody tr {
     border-top: 1px solid rgb(211, 213, 218);
@@ -211,7 +211,7 @@ td a {
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 2px;
+    gap: 10px;
 
 }
 

@@ -173,6 +173,54 @@ async function getUser(email) {
 
   }
 
+
+  async function insertNewFile({ filename, size, createdAt, email }) {
+    try {
+      // Find the user by email
+      const user = await prisma.user.findUnique({
+        where: { email: email }
+      });
+
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      // Create a new folder linked to the user and possibly a parent folder
+      const newFile = await prisma.file.create({
+        data: {
+          name: filename,
+          createdAt: createdAt,
+          blob: size,
+          owner: {
+            connect: { id: user.id } // Link the folder to the user (author)
+          },
+        }
+      });
+
+      console.log('File created:', newFile);
+      return newFile;
+    } catch (error) {
+      console.error('Error inserting file:', error);
+      throw error;
+    }
+  }
+
+  async function getAllFiles( email ) {
+    const user = await prisma.user.findUnique({
+       where: {
+         email: email
+       }
+    })
+
+    const files = await prisma.file.findMany({
+      where: {
+        ownerId: user.id,
+      }
+    })
+    return files;
+
+  }
+
   module.exports = {
     insertNewUsers,
     getUser,
@@ -183,6 +231,8 @@ async function getUser(email) {
     updateFolder,
     insertNewSubFolder,
     getFolder,
-    getAllSubFolders
+    getAllSubFolders,
+    insertNewFile,
+    getAllFiles
     // other database functions
   };

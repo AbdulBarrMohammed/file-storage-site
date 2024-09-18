@@ -51,8 +51,8 @@ model File {
   id String @id @default(uuid())
   name String
   createdAt DateTime
-  updatedAt DateTime
-  blob Bytes
+  updatedAt DateTime @updatedAt
+  blob Int
   folder Folder? @relation(fields: [folderId], references: [id])
   folderId String?
   owner       User      @relation("UserFiles", fields: [ownerId], references: [id])
