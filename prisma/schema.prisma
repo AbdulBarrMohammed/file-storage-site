@@ -26,6 +26,9 @@ model User {
   password String
   folders Folder[]
   files   File[]  @relation("UserFiles")
+  likes File[] @relation("UserLikes")
+  shared File[] @relation("UserShared")
+  downloads File[] @relation("UserDownloads")
 
 }
 
@@ -43,6 +46,7 @@ model Folder {
   parent      Folder?  @relation("SubfolderRelation", fields: [parentId], references: [id], onDelete: Cascade)
 }
 
+
 model File {
   id String @id @default(uuid())
   name String
@@ -53,5 +57,14 @@ model File {
   folderId String?
   owner       User      @relation("UserFiles", fields: [ownerId], references: [id])
   ownerId     String
+
+  likedBy   User? @relation("UserLikes", fields: [likedById], references: [id])
+  likedById String?
+
+  sharedBy User? @relation("UserShared", fields: [sharedById], references: [id])
+  sharedById String?
+
+  downloadBy User? @relation("UserDownloads", fields: [downloadById], references: [id])
+  downloadById String?
 
 }

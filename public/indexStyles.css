@@ -74,6 +74,7 @@
 
 .call-to-action button:hover {
     background-color: #8A8AF7;
+    transition: background-color 300ms ease-in-out;
     cursor: pointer;
     gap: 10px;
 }

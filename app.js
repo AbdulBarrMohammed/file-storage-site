@@ -5,6 +5,7 @@ const path = require("path");
 const authRouter = require("./routes/authRouter");
 const libraryRouter = require("./routes/libraryRouter");
 const folderRouter = require("./routes/folderRouter")
+const fileRouter = require("./routes/fileRouter")
 
 const app = express();
 app.set("views", __dirname);
@@ -42,6 +43,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/", authRouter);
 app.use("/", libraryRouter);
 app.use("/", folderRouter)
+app.use("/", fileRouter);
 
 
 module.exports = app;

@@ -60,6 +60,7 @@ header a {
    color: black; /* Link color after scrolling */
 }
 
+
 /* Header styles when scrolled */
 .header.scrolled {
    background-color: white; /* Color after scrolling */
@@ -70,4 +71,17 @@ header a {
 .right-header a:hover, .left-header-left-links a:hover{
    color: #6B63F6;
    cursor: pointer;
+}
+
+.profile {
+   height: 40px;
+   width: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 20px;
+   background-color: rgb(230, 232, 234);
+   font-weight: bold;
+   color: black;
+
 }

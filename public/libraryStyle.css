@@ -181,6 +181,7 @@ table, th, td {
     margin: .8rem auto;
     border-radius: .6rem;
     border: 1px solid rgb(211, 213, 218);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
     overflow: auto;
 
 }
@@ -191,16 +192,12 @@ table {
 
 }
 
-.table__body {
-    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
-}
-
 thead th {
     background-color: rgb(230, 232, 234);
 }
 
 td {
-    padding-left: 60px;
+    padding-left: 65px;
 
 
 }
@@ -230,34 +227,7 @@ td a:hover {
 }
 
 
-/*
-.folderModal {
-    display: none; /* Hidden by default
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-
-.folder-modal-content {
-
-    background-color: gray;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-
-
-
-} */
-
-
-.folderModal, .modal.edit {
+.folderModal, .modal.edit, .fileModal {
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1;
@@ -297,13 +267,7 @@ hr {
     padding: 15px;
 }
 
-.optionsModal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    overflow: auto;
 
-}
 .modal {
     display: none;
     position: fixed;
@@ -364,3 +328,46 @@ input {
     border: none;
     background-color: inherit;
  }
+
+ .optionsModal {
+    display: flex;
+    flex-direction: column;
+ }
+
+ .optionsModal button {
+    border: none;
+    padding: 5px;
+    background-color: white;
+ }
+
+ .optionsModal button:hover {
+    cursor: pointer;
+    background-color:  rgb(245, 247, 249);
+ }
+
+ .optionsModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    overflow: auto;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+.optionsModal .close {
+    font-size: 1rem;
+
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.options-btn {
+    margin-left: 20px;
+}

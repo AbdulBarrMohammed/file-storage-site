@@ -11,7 +11,31 @@
     <link rel="stylesheet" href="/headerStyle.css">
 </head>
 <body>
-    <%- include('./header.ejs') %>
+    <% if (user) {%>
+        <header class="header">
+            <div class="left-header">
+                <a href="/">
+                    <img src="/images/fox-4-svgrepo-com.svg">
+                    <h2>SortiFox</h2>
+                </a>
+                <ul class="left-header-left-links">
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Solutions</a></li>
+                    <li><a href="">Enterprise</a></li>
+                    <li><a href="">App</a></li>
+                </ul>
+            </div>
+            <div class="right-header">
+                <ul>
+                    <li><a href="/log-out">Log out</a></li>
+                    <li><a class="profile" href="/library"><div class="profile"> <p><%- user.email.charAt(0).toUpperCase() %></p></div></a> </li>
+
+                </ul>
+            </div>
+        </header>
+    <% } else { %>
+        <%- include('./header.ejs') %>
+    <%}%>
     <div class="container">
         <div class="call-to-action">
             <h1>Keep It Safe, Keep It Simple, Store It</h1>

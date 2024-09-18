@@ -28,7 +28,8 @@ const validateUser = [
 //Get
 async function displayIndex(req, res) {
 
-    res.render("views/index");
+
+    res.render("views/index", {user: req.user});
 }
 
 async function signUpGet(req, res) {

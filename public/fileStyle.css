@@ -1,0 +1,132 @@
+/* HEADER */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    position: fixed; /* Fixes the header to the top of the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+
+    color: black;
+    border-bottom: 1px solid rgb(235, 234, 231);
+
+ }
+
+
+
+ .left-header {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+ }
+
+ .right-header ul, .left-header ul {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    list-style: none;
+
+ }
+ .left-header a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+ }
+ .left-header a:hover {
+    cursor: pointer;
+ }
+
+ header a {
+    transition: 0.3s;
+    text-decoration: none;
+    color: black;
+
+ }
+
+
+ .right-header a:hover, .left-header-left-links a:hover{
+    color: #6B63F6;
+    cursor: pointer;
+ }
+
+ .profile {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    background-color: rgb(230, 232, 234);
+    font-weight: bold;
+
+}
+
+/* CONTENT */
+.content {
+    margin-top: 15px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    gap: 15px;
+    font-size: 1rem;
+    padding: 30px;
+    border: 1px solid rgb(211, 213, 218);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+
+
+
+.img-description {
+    display: flex;
+    flex-direction: column;
+
+
+
+}
+
+
+.image-container img{
+    width: 100%;
+    object-fit: cover;
+}
+
+.img-buttons {
+    padding-top: 5px;
+}
+
+button {
+    font-size: 1rem;
+    border: none;
+    color: white;
+    background-color: #6B63F6;
+    transition: background-color 300ms ease-in-out;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.share-btn {
+    color: black;
+    background-color: rgb(230, 232, 234);
+}
+
+.share-btn:hover {
+    background-color: rgb(240, 242, 244);
+    cursor: pointer;
+}
+button:hover {
+    background-color: #8A8AF7;
+    cursor: pointer;
+}

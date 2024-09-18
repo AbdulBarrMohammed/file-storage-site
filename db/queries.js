@@ -43,9 +43,6 @@ async function getUser(email) {
   }
 
   async function deleteFolder( id ) {
-
-
-
    const deleteFolder = await prisma.folder.delete({
     where: {
       id: id

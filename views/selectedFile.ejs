@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/indexStyles.css">
+    <link rel="stylesheet" href="/fileStyle.css">
+    <title>Document</title>
+</head>
+<body>
+    <% if (user) {%>
+        <header class="header">
+            <div class="left-header">
+                <a href="/">
+                    <img src="/images/fox-4-svgrepo-com.svg">
+                    <h2>SortiFox</h2>
+                </a>
+                <ul class="left-header-left-links">
+                    <li><a href="">Products</a></li>
+                    <li><a href="">Solutions</a></li>
+                    <li><a href="">Enterprise</a></li>
+                    <li><a href="">App</a></li>
+                </ul>
+            </div>
+            <div class="right-header">
+                <ul>
+                    <li><a href="/log-out">Log out</a></li>
+                    <li><div class="profile"> <p><%- user.email.charAt(0).toUpperCase() %></p> </div></li>
+
+                </ul>
+            </div>
+        </header>
+    <% } else { %>
+        <%- include('./header.ejs') %>
+    <%}%>
+
+    <div class="content">
+        <div class="image-container">
+            <img src="/images/indy.png">
+            <div class="img-description">
+                <p>Uploaded at: </p>
+                <p>Updated at: </p>
+                <p>Size: </p>
+                <div class="img-buttons">
+                    <button>Download</button>
+                    <button class="share-btn">Share</button>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

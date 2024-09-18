@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!--ADD NEW FOLDER MODAL-->
     <div id="newFolderModal" class="folderModal">
         <div class="folder-modal-content">
 
@@ -27,6 +28,28 @@
                 </div>
 
 
+            </form>
+        </div>
+    </div>
+
+    <!--ADD NEW FILE MODAL-->
+    <div id="newFileModal" class="fileModal">
+        <div class="file-modal-content">
+
+            <div class="file-form-header">
+                <h2>Create File</h2>
+                <span class="close">&times;</span>
+            </div>
+
+            <hr>
+            <form action="/library/create/file" method="POST" enctype="multipart/form-data">
+                <div class="input-container">
+                    <label for="file">Name:</label>
+                    <input type="file" id="file" name="file" required placeholder="File">
+                </div>
+                <div class="folder-form-button">
+                    <button type="submit">Create</button>
+                </div>
             </form>
         </div>
     </div>
@@ -83,15 +106,14 @@
                             %>
                             <tr>
                                 <td> <a href="/library/folder/<%= folder.id %>">  <img src="/images/folder-outline.svg"> <%= folder.name %> </a> </td>
-                                <td> - </td>
-                                <td> <%= displayTimeAgo(folder.createdAt) %> </td>
+                                <td> <img src="/images/minus.svg"> </td>
+                                <td > <%= displayTimeAgo(folder.createdAt) %> </td>
                                 <td> <%= displayTimeAgo(folder.updatedAt) %> </td>
                                 <td>
-                                    <button class="options-btn" data-folder-id="<%= folder.id %>">...</button>
+                                    <button class="options-btn" data-folder-id="<%= folder.id %>"> <img src="/images/dots-horizontal.svg"> </button>
                                     <div id="optionsModal<%= folder.id %>" class="optionsModal">
                                         <div class="modal-content">
                                           <span class="close">&times;</span>
-                                          <h2>Folder Options</h2>
                                           <button onclick="openEditModal('<%= folder.id %>')">Edit</button>
                                           <form id="deleteFolderForm<%= folder.id %>" action="/library/folder/delete/<%= folder.id %>" method="POST">
                                             <button type="submit" onclick="return confirm('Are you sure you want to delete this user?');"> Delete</button>
@@ -136,19 +158,35 @@
 
         document.addEventListener('DOMContentLoaded', () => {
 
+
             const newFolderModal = document.getElementById('newFolderModal');
             const openNewFolderModalBtn = document.getElementById('open-modal');
+            const openNewFileModalBtn = document.getElementById('open-file-modal');
             const newFolderModalCloseBtn = newFolderModal.querySelector('.close');
+
             const optionsModal = document.querySelector(`.optionsModal`);
-            //const deleteFolderModal = document.getElementById('deleteFolderModal');
+            const newFileModal = document.getElementById('newFileModal');
+            const newFileModalCloseBtn = newFileModal.querySelector('.close');
+
 
             openNewFolderModalBtn.onclick = function() {
                 newFolderModal.style.display = 'block';
                 optionsModal.style.display = 'none';
             }
 
+            openNewFileModalBtn.onclick = function() {
+                newFileModal.style.display = 'block';
+                newFolderModal.style.display = 'none';
+            }
+
             newFolderModalCloseBtn.onclick = function() {
                 newFolderModal.style.display = 'none';
+            }
+            newFileModalCloseBtn.onclick = function() {
+                newFileModal.style.display = 'none';
+            }
+            newFileModal.onclick = function() {
+                newFileModal.style.display = 'block';
             }
             // Handle options modal for each folder
             document.querySelectorAll('.options-btn').forEach(button => {
@@ -191,6 +229,10 @@
                 }
                 if (event.target == optionsModal) {
                     optionsModal.style.display = 'none';
+
+                }
+                if (event.target == newFileModal) {
+                    newFileModal.style.display = 'none';
 
                 }
 

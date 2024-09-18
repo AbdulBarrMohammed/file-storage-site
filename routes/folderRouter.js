@@ -11,5 +11,8 @@ router.post("/library/folder/update/:id", folderController.editFolderPost);
 router.get("/library/folder/:id", folderController.getSelectedFolder);
 router.post("/library/folder/createSubFolder/:id", folderController.addSubFolderPost)
 
+router.post("/library/subfolder/delete/:id", folderController.deleteSubFolderPost);
+router.post("/library/subfolder/update/:id", folderController.editSubFolderPost);
+
 
 module.exports = router;
