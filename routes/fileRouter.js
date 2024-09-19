@@ -14,5 +14,9 @@ router.get("/library/file/:id", fileController.getSelectedFile);
 router.get("/library/file/selectedFile", fileController.getSelectedFile);
 //router.post("/library/folder/createSubFolder/:id", folderController.addSubFolderPost)
 
+router.post("/library/file/createSubFile/:id", upload.single('file'), fileController.addSubFilePost)
+router.post("/library/subfile/delete/:id/:folderId", fileController.deleteSubFilePost);
+router.post("/library/subfile/update/:id/:folderId", fileController.editSubFilePost);
+
 
 module.exports = router;

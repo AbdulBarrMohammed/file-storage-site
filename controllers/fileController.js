@@ -52,29 +52,36 @@ async function createFilePost(req, res, next) {
     const { email } = req.user;
     console.log(email)
     console.log('email above');
-    const { filename, size} = req.file;
+    const { originalname, size} = req.file;
     const createdAt = new Date();
-    await db.insertNewFile({filename, size, createdAt, email})
+    await db.insertNewFile({originalname, size, createdAt, email})
 
 
     res.redirect("/library")
-
-}
-
-
-async function deleteFilePost(req, res) {
-    //const { email } = req.user;
-
-
-    res.redirect("/library")
-
 
 }
 
 async function editFilePost(req, res) {
-    const {newFolderName} = req.body;
-    await db.updateFolder(req.params.id, newFolderName);
+    const { newFileName } = req.body;
+    await db.updateFile(req.params.id, newFileName);
     res.redirect("/library");
+
+
+}
+
+async function editSubFilePost(req, res) {
+    const { newFileName } = req.body;
+    const id = req.params.folderId;
+    const subFolder = await db.getFolder(id);
+    const parentId = subFolder.id;
+    console.log(`id: ${id}`)
+    console.log(`subfolder: ${subFolder}`)
+
+    await db.updateFile(req.params.id, newFileName);
+
+    res.redirect(`/library/folder/${parentId}`)
+    //res.redirect('/library')
+
 
 
 }
@@ -83,14 +90,48 @@ async function getSelectedFile(req, res) {
     res.render(`views/selectedFile`, {user: req.user});
 }
 
+async function deleteFilePost(req, res) {
 
+    const id = req.params.id;
+    console.log('delete file confirmed')
+    await db.deleteFile(id)
+
+    res.redirect("/library")
+
+
+}
+
+async function deleteSubFilePost(req, res) {
+    const id = req.params.folderId;
+    const subFolder = await db.getFolder(id);
+    const parentId = subFolder.id;
+    await db.deleteFile(req.params.id);
+
+    res.redirect(`/library/folder/${parentId}`)
+
+
+}
+
+async function addSubFilePost(req, res, next) {
+    const { email } = req.user;
+    const folderId = req.params.id;
+    const { originalname, size} = req.file;
+    const createdAt = new Date();
+    await db.insertNewSubFile({originalname, size, createdAt, email, folderId})
+
+    res.redirect(`/library/folder/${folderId}`)
+
+}
 
 module.exports =  {
 
     createFilePost,
     deleteFilePost,
     editFilePost,
-    getSelectedFile
+    getSelectedFile,
+    addSubFilePost,
+    editSubFilePost,
+    deleteSubFilePost
 
 
   }

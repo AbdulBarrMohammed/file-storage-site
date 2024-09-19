@@ -50,19 +50,6 @@ async function getUser(email) {
   })
 
   return deleteFolder;
-  /*
-    await prisma.folder.deleteMany({
-      where: {
-        parentId: id // Delete subfolders
-      }
-    });
-
-    // Then, delete the parent folder
-    await prisma.folder.delete({
-      where: {
-        id: id// Delete the parent folder itself
-      }
-    }); */
   }
 
 
@@ -174,7 +161,7 @@ async function getUser(email) {
   }
 
 
-  async function insertNewFile({ filename, size, createdAt, email }) {
+  async function insertNewFile({ originalname, size, createdAt, email }) {
     try {
       // Find the user by email
       const user = await prisma.user.findUnique({
@@ -188,7 +175,7 @@ async function getUser(email) {
       // Create a new folder linked to the user and possibly a parent folder
       const newFile = await prisma.file.create({
         data: {
-          name: filename,
+          name: originalname,
           createdAt: createdAt,
           blob: size,
           owner: {
@@ -208,17 +195,96 @@ async function getUser(email) {
   async function getAllFiles( email ) {
     const user = await prisma.user.findUnique({
        where: {
-         email: email
+         email: email,
+
        }
     })
 
     const files = await prisma.file.findMany({
       where: {
         ownerId: user.id,
+        folderId: null
       }
     })
     return files;
 
+  }
+
+
+
+
+  async function deleteFile( id ) {
+    const deleteFile = await prisma.file.delete({
+     where: {
+       id: id
+     },
+
+
+
+   });
+   return deleteFile;
+  }
+
+
+  async function updateFile(id, newFileName) {
+
+    const updateFile = await prisma.file.update({
+      where: {
+        id: id
+      },
+      data: {
+        name: newFileName,
+      }
+    });
+
+    return updateFile;
+
+
+  }
+
+  async function getAllSubFiles(folderId) {
+    // where parentid = parentid
+
+
+   const files = await prisma.file.findMany({
+     where: {
+      folderId: folderId
+     }
+   })
+   return files;
+
+  }
+
+
+  async function insertNewSubFile({originalname, size, createdAt, email, folderId}) {
+    try {
+
+
+      const user = await prisma.user.findUnique({
+        where: { email: email }
+      });
+
+
+      const newSubFile = await prisma.file.create({
+        data: {
+          name: originalname,
+          blob: size,
+          createdAt: createdAt,
+          folder: {
+            connect: { id: folderId }
+          },
+          owner: {
+            connect: { id: user.id } // Link the folder to the author (user who created it)
+          }
+        }
+      });
+
+      console.log('Successfully created new subfile:', newSubFile);
+      return newSubFile;
+    } catch (error) {
+      console.error('Error inserting new subfolder:', error);
+      throw new Error('Failed to create subfolder');
+    }
   }
 
   module.exports = {
@@ -233,6 +299,11 @@ async function getUser(email) {
     getFolder,
     getAllSubFolders,
     insertNewFile,
-    getAllFiles
+    getAllFiles,
+    deleteFile,
+    updateFile,
+    getAllSubFiles,
+    insertNewSubFile,
+    getAllSubFiles
     // other database functions
   };

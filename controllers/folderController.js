@@ -50,14 +50,11 @@ async function editFolderPost(req, res) {
 
 async function getSelectedFolder(req, res) {
     const id = req.params.id;
-    console.log('folder id below')
-    console.log(id);
     const folder = await db.getFolder(id);
-    console.log("folder below")
-    console.log(folder);
     const parentId = req.params.id;
     const subFolders = await db.getAllSubFolders(parentId);
-    res.render(`views/selectedFolder`, {user: req.user, folder: folder, formatDistanceToNow: formatDistanceToNow, subFolders: subFolders});
+    const subFiles = await db.getAllSubFiles(parentId);
+    res.render(`views/selectedFolder`, {user: req.user, folder: folder, formatDistanceToNow: formatDistanceToNow, subFolders: subFolders, subFiles: subFiles});
 }
 
 async function addSubFolderPost(req, res) {
@@ -83,9 +80,13 @@ async function deleteSubFolderPost(req, res) {
 }
 
 async function editSubFolderPost(req, res) {
+
     const id = req.params.id;
     const subFolder = await db.getFolder(id);
-    const parentId = subFolder.parentId;
+
+
+   const parentId = subFolder.parentId;
+
 
     const {newSubFolderName} = req.body;
     await db.updateFolder(req.params.id, newSubFolderName);
@@ -95,6 +96,9 @@ async function editSubFolderPost(req, res) {
 
 
 }
+
+
+
 
 
 module.exports =  {
