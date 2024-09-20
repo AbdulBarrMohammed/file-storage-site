@@ -26,10 +26,6 @@ model User {
   password String
   folders Folder[]
   files   File[]  @relation("UserFiles")
-  likes File[] @relation("UserLikes")
-  shared File[] @relation("UserShared")
-  downloads File[] @relation("UserDownloads")
-
 }
 
 model Folder {
@@ -52,19 +48,12 @@ model File {
   name String
   createdAt DateTime
   updatedAt DateTime @updatedAt
+  path String @default("")
   blob Int
   folder Folder? @relation(fields: [folderId], references: [id])
   folderId String?
   owner       User      @relation("UserFiles", fields: [ownerId], references: [id])
   ownerId     String
 
-  likedBy   User? @relation("UserLikes", fields: [likedById], references: [id])
-  likedById String?
-
-  sharedBy User? @relation("UserShared", fields: [sharedById], references: [id])
-  sharedById String?
-
-  downloadBy User? @relation("UserDownloads", fields: [downloadById], references: [id])
-  downloadById String?
 
 }

@@ -194,128 +194,137 @@
     </div>
 
     <script>
-
-        document.addEventListener('DOMContentLoaded', () => {
-
-
-            //Folder Modals
+            document.addEventListener('DOMContentLoaded', () => {
+            // Folder Modals
             const newFolderModal = document.getElementById('newFolderModal');
             const openNewFolderModalBtn = document.getElementById('open-modal');
             const openNewFileModalBtn = document.getElementById('open-file-modal');
             const newFolderModalCloseBtn = newFolderModal.querySelector('.close');
 
-            const optionsModal = document.querySelector(`.optionsModal`);
-
-            //File Modals
-            const optionsFileModal = document.querySelector('.optionsFileModal');
+            // File Modals
             const newFileModal = document.getElementById('newFileModal');
             const newFileModalCloseBtn = newFileModal.querySelector('.close');
 
-
-
-
+            let currentModal = null;
 
             openNewFolderModalBtn.onclick = function() {
+                closeCurrentModal();
                 newFolderModal.style.display = 'block';
-                optionsModal.style.display = 'none';
+                currentModal = newFolderModal;
             }
 
             openNewFileModalBtn.onclick = function() {
+                closeCurrentModal();
                 newFileModal.style.display = 'block';
-                newFolderModal.style.display = 'none';
+                currentModal = newFileModal;
             }
 
             newFolderModalCloseBtn.onclick = function() {
                 newFolderModal.style.display = 'none';
+                currentModal = null;
             }
+
             newFileModalCloseBtn.onclick = function() {
                 newFileModal.style.display = 'none';
+                currentModal = null;
             }
-            newFileModal.onclick = function() {
-                newFileModal.style.display = 'block';
+
+            // Function to close the current modal
+            function closeCurrentModal() {
+                if (currentModal) {
+                    currentModal.style.display = 'none';
+                    currentModal = null;
+                }
             }
+
             // Handle options modal for each folder
             document.querySelectorAll('.options-btn').forEach(button => {
                 const folderId = button.getAttribute('data-folder-id');
-                const optionsModal = document.getElementById(`optionsModal${folderId}`); // Corrected template literal
+                const optionsModal = document.getElementById(`optionsModal${folderId}`);
                 const optionsCloseBtn = optionsModal.querySelector('.close');
 
                 // Open the options modal when the button is clicked
                 button.addEventListener('click', () => {
+                    closeCurrentModal(); // Close any currently open modal
                     optionsModal.style.display = 'block';
+                    currentModal = optionsModal;
                 });
 
                 // Close the options modal when the 'X' is clicked
                 optionsCloseBtn.onclick = function() {
                     optionsModal.style.display = 'none';
+                    currentModal = null;
                 };
-
-
             });
 
             // Handle options modal for each file
-         document.querySelectorAll('.options-file-btn').forEach(button => {
+            document.querySelectorAll('.options-file-btn').forEach(button => {
                 const fileId = button.getAttribute('data-file-id');
                 const optionsFileModal = document.getElementById(`optionsFileModal${fileId}`);
                 const optionsFileCloseBtn = optionsFileModal.querySelector('.close');
 
                 // Open the options modal when the button is clicked
                 button.addEventListener('click', () => {
+                    closeCurrentModal(); // Close any currently open modal
                     optionsFileModal.style.display = 'block';
+                    currentModal = optionsFileModal;
                 });
 
                 // Close the options modal when the 'X' is clicked
                 optionsFileCloseBtn.onclick = function() {
                     optionsFileModal.style.display = 'none';
+                    currentModal = null;
                 };
-
             });
 
             window.openEditModal = function(folderId) {
-                //get options modal id
                 const optionsModal = document.getElementById(`optionsModal${folderId}`);
                 const modal = document.getElementById(`editFolderModal${folderId}`);
+                closeCurrentModal(); // Close any currently open modal
                 modal.style.display = 'block';
                 optionsModal.style.display = 'none';
+                currentModal = modal;
 
                 const closeModal = modal.querySelector('.close');
                 closeModal.onclick = function() {
                     modal.style.display = 'none';
+                    currentModal = null;
                 };
-
             }
 
             window.openEditFileModal = function(fileId) {
-                const optionsModel = document.getElementById(`optionsModal${fileId}`);
+                const optionsModal = document.getElementById(`optionsModal${fileId}`);
                 const modal = document.getElementById(`editFileModal${fileId}`);
+                closeCurrentModal(); // Close any currently open modal
                 modal.style.display = 'block';
                 optionsModal.style.display = 'none';
+                currentModal = modal;
 
                 const closeModal = modal.querySelector('.close');
                 closeModal.onclick = function() {
                     modal.style.display = 'none';
+                    currentModal = null;
                 };
-
-
             }
 
             // Close modals when clicking outside of them
             window.onclick = function(event) {
                 if (event.target == newFolderModal) {
                     newFolderModal.style.display = "none";
-
+                    currentModal = null;
                 }
-                if (event.target == optionsModal) {
-                    optionsModal.style.display = 'none';
-
+                if (event.target.classList.contains('optionsModal')) {
+                    event.target.style.display = 'none';
+                    currentModal = null;
                 }
                 if (event.target == newFileModal) {
                     newFileModal.style.display = 'none';
-
+                    currentModal = null;
                 }
             }
-
         });
+
+
 
 
 

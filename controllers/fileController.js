@@ -2,61 +2,48 @@ const db = require("../db/queries");
 const { formatDistanceToNow }  = require('date-fns');
 cloudinary = require('cloudinary');
 
-// add function to add file to subfolders
 
-/*
-(async function() {
+cloudinary.config({
+    cloud_name: 'dzuhra9bj',
+    secure: true,
+    api_key: '311875277133285',
+    api_secret: 'VNh1gI5JRjLCiG6JXpT7lIIgoKs' // Click 'View API Keys' above to copy your API secret
+});
 
-    // Configuration
-    cloudinary.config({
-        cloud_name: 'dzuhra9bj',
-        api_key: '311875277133285',
-        api_secret: 'VNh1gI5JRjLCiG6JXpT7lIIgoKs' // Click 'View API Keys' above to copy your API secret
-    });
 
-    // Upload an image
-     const uploadResult = await cloudinary.uploader
-       .upload(
-           'https://res.cloudinary.com/demo/image/upload/getting-started/shoes.jpg', {
-               public_id: 'files',
-           }
-       )
-       .catch((error) => {
-           console.log(error);
-       });
+//get image from cloudinary
 
-    console.log(uploadResult);
 
-    // Optimize delivery by resizing and applying auto-format and auto-quality
-    const optimizeUrl = cloudinary.url('files', {
-        fetch_format: 'auto',
-        quality: 'auto'
-    });
 
-    console.log(optimizeUrl);
-
-    // Transform the image: auto-crop to square aspect_ratio
-    const autoCropUrl = cloudinary.url('files', {
-        crop: 'auto',
-        gravity: 'auto',
-        width: 500,
-        height: 500,
-    });
-
-    console.log(autoCropUrl);
-})();
-*/
 
 async function createFilePost(req, res, next) {
     //res.send('Uploaded Successfully');
     const { email } = req.user;
-    console.log(email)
-    console.log('email above');
-    const { originalname, size} = req.file;
+
+    const fileType = req.file.mimetype;  // Get the file MIME type
+    console.log(fileType)
+
+    // Determine resource type based on file MIME type
+    let resourceType = "auto";  // Default to "auto" for dynamic handling
+    if (fileType === "application/pdf") {
+        resourceType = "raw";  // PDFs are treated as raw files
+    } else if (fileType.startsWith("image/")) {
+        resourceType = "image";  // Images should use "image" resource type
+    }
+
+    const results = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: resourceType,
+
+    })
+    console.log('Cloudinary Upload Result:', results);
+    //const path = results.secure_url;
+    const url = results.secure_url;
+    let path = url.replace('/upload/', '/upload/pg_1/').replace('.pdf', '.jpg');
+
+
+    const { originalname, size } = req.file;
     const createdAt = new Date();
-    await db.insertNewFile({originalname, size, createdAt, email})
-
-
+    await db.insertNewFile({originalname, size, path, createdAt, email})
     res.redirect("/library")
 
 }
@@ -87,7 +74,11 @@ async function editSubFilePost(req, res) {
 }
 
 async function getSelectedFile(req, res) {
-    res.render(`views/selectedFile`, {user: req.user});
+    const id = req.params.id;
+    const file = await db.getFile(id)
+    console.log('file path');
+    console.log(file.path);
+    res.render(`views/selectedFile`, {user: req.user, file: file});
 }
 
 async function deleteFilePost(req, res) {
@@ -115,9 +106,9 @@ async function deleteSubFilePost(req, res) {
 async function addSubFilePost(req, res, next) {
     const { email } = req.user;
     const folderId = req.params.id;
-    const { originalname, size} = req.file;
+    const { originalname, size, path} = req.file;
     const createdAt = new Date();
-    await db.insertNewSubFile({originalname, size, createdAt, email, folderId})
+    await db.insertNewSubFile({originalname, size, createdAt, path, email, folderId})
 
     res.redirect(`/library/folder/${folderId}`)
 

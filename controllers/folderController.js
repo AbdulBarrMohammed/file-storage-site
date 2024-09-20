@@ -30,10 +30,9 @@ async function deleteFolderPost(req, res) {
     const id = req.params.id;
     console.log('delete confirmed')
     console.log(id);
+    //delete the parent folders files first;
+    await db.deleteSubFolderFiles(id);
     await db.deleteFolder(id)
-
-    //res.redirect(`/library/folder/${parentId}`)
-
 
     res.redirect("/library")
 

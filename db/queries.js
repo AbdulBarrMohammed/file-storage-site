@@ -52,6 +52,17 @@ async function getUser(email) {
   return deleteFolder;
   }
 
+  async function deleteSubFolderFiles(folderId) {
+    const deleteFiles = await prisma.file.deleteMany({
+      where: {
+        folderId: folderId
+      },
+    })
+
+    return deleteFiles;
+
+  }
+
 
 
 
@@ -161,7 +172,7 @@ async function getUser(email) {
   }
 
 
-  async function insertNewFile({ originalname, size, createdAt, email }) {
+  async function insertNewFile({ originalname, size, path, createdAt, email }) {
     try {
       // Find the user by email
       const user = await prisma.user.findUnique({
@@ -177,6 +188,7 @@ async function getUser(email) {
         data: {
           name: originalname,
           createdAt: createdAt,
+          path: path,
           blob: size,
           owner: {
             connect: { id: user.id } // Link the folder to the user (author)
@@ -256,7 +268,7 @@ async function getUser(email) {
   }
 
 
-  async function insertNewSubFile({originalname, size, createdAt, email, folderId}) {
+  async function insertNewSubFile({originalname, size, createdAt, path, email, folderId}) {
     try {
 
 
@@ -269,6 +281,7 @@ async function getUser(email) {
         data: {
           name: originalname,
           blob: size,
+          path: path,
           createdAt: createdAt,
           folder: {
             connect: { id: folderId }
@@ -285,6 +298,15 @@ async function getUser(email) {
       console.error('Error inserting new subfolder:', error);
       throw new Error('Failed to create subfolder');
     }
+  }
+
+  async function getFile(id) {
+    const file = await prisma.file.findUnique({
+      where: { id: id }
+    });
+
+    return file;
+
   }
 
   module.exports = {
@@ -304,6 +326,8 @@ async function getUser(email) {
     updateFile,
     getAllSubFiles,
     insertNewSubFile,
-    getAllSubFiles
+    getAllSubFiles,
+    getFile,
+    deleteSubFolderFiles
     // other database functions
   };
