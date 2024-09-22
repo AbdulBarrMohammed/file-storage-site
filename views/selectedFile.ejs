@@ -41,14 +41,14 @@
                 <object data="<%= file.path %>" type="application/pdf" width="100%" height="100%">
                   </object>
             <% } else { %>
-                <img src="<%= file.path %>" alt="<%= file.name %>" />
+                <img class="selectedImg" id="myFile" src="<%= file.path %>" alt="<%= file.name %>" />
             <% } %>
             <div class="img-description">
                 <p>Uploaded at: <%- file.createdAt %></p>
                 <p>Updated at: <%- file.updatedAt %></p>
                 <p>Size: <%- file.blob %></p>
                 <div class="img-buttons">
-                    <button>Download</button>
+                    <button id= "myFile" class="button" data-download="myFile">Download</button>
                     <button class="share-btn">Share</button>
                 </div>
 
@@ -56,5 +56,34 @@
         </div>
 
     </div>
+
+    <script>
+        let downloadLinks = document.querySelectorAll('[data-download]');
+
+        downloadLinks.forEach(button => {
+            const id = button.dataset.download
+            const file = document.getElementById(id);
+            const a = document.createElement('a');
+
+            let imgPath = file.src;
+            let fileName = file.alt || 'download';
+            imgPath = imgPath.replace('/upload/', '/upload/fl_attachment/');
+
+            a.href = imgPath;
+            a.download = fileName;
+
+            a.style.display = "none";
+
+
+            button.addEventListener("click", () => {
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            })
+
+        })
+
+
+    </script>
 </body>
 </html>
