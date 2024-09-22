@@ -159,6 +159,7 @@ table, td, th {
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
     width: 100%;
     overflow: auto;
+    margin-bottom: 20px;
 
 }
 
@@ -304,6 +305,7 @@ input {
  .optionsModal, .optionsFileModal {
     display: flex;
     flex-direction: column;
+
  }
 
  .optionsModal button, .optionsFileModal button {
@@ -315,7 +317,7 @@ input {
 
 
 
- .optionsModal button:hover {
+ .optionsModal button:hover, .optionsFileModal button:hover {
     cursor: pointer;
     background-color:  rgb(245, 247, 249);
  }
@@ -329,11 +331,12 @@ input {
     border-radius: 5px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
+
 }
 
 
 
-.optionsModal .close {
+.optionsModal .close, .optionsFileModal .close {
     font-size: 1rem;
 
 }
@@ -341,4 +344,31 @@ input {
 .modal-content {
     display: flex;
     flex-direction: column;
+}
+
+
+/* file modal */
+.fileModal form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 10px;
+}
+
+.folder-form-button {
+    display: flex;
+    justify-content: start;
+}
+
+.file-form-button button {
+    padding: 5px;
+    font-size: 1rem;
+    border: none;
+    background-color: white;
+    border-radius: 5px;
+
+}
+
+.file-form-header {
+    padding: 0 20px;
 }

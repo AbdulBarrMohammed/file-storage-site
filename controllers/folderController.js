@@ -28,8 +28,7 @@ async function createFolderPost(req, res) {
 async function deleteFolderPost(req, res) {
     //const { email } = req.user;
     const id = req.params.id;
-    console.log('delete confirmed')
-    console.log(id);
+
     //delete the parent folders files first;
     await db.deleteSubFolderFiles(id);
     await db.deleteFolder(id)
@@ -73,6 +72,9 @@ async function deleteSubFolderPost(req, res) {
     const id = req.params.id;
     const subFolder = await db.getFolder(id);
     const parentId = subFolder.parentId
+
+    //first delete all files of the folder
+    await db.deleteSubFolderFiles(id);
     await db.deleteFolder(id)
 
     res.redirect(`/library/folder/${parentId}`)

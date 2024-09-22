@@ -37,18 +37,15 @@
         <div class="file-modal-content">
 
             <div class="file-form-header">
-                <h2>Create File</h2>
                 <span class="close">&times;</span>
             </div>
 
-            <hr>
             <form action="/library/create/file" method="POST" enctype="multipart/form-data">
                 <div class="input-container">
-                    <label for="file">Name:</label>
                     <input type="file" id="file" name="file" required placeholder="File">
                 </div>
-                <div class="folder-form-button">
-                    <button type="submit">Create</button>
+                <div class="file-form-button">
+                    <button type="submit">Upload</button>
                 </div>
             </form>
         </div>
@@ -119,7 +116,9 @@
                                         </form>
                                         </div>
                                       </div>
+
                                 </td>
+
 
                                 <div id="editFolderModal<%= folder.id %>" class="modal edit">
                                     <div class="modal-content edit" id="editFolder-modal">
@@ -146,12 +145,16 @@
                          <% }) %>
                          <% files.map((file, index) => { %>
                             <tr>
+
                                 <td> <a href="/library/file/<%= file.id %>">  <img src="/images/folder-outline.svg"> <%= file.name %> </a> </td>
                                 <td> <%= file.blob %> </td>
                                 <td > <%= displayTimeAgo(file.createdAt) %> </td>
                                 <td> <%= displayTimeAgo(file.updatedAt) %> </td>
+
+
                                 <td>
-                                    <button class="options-file-btn" data-file-id="<%= file.id %>"> <img src="/images/dots-horizontal.svg"> </button>
+                                    <button class="options-file-btn" data-file-id="<%= file.id %>"> <img src="/images/dots-horizontal.svg">
+                                    </button>
                                     <div id="optionsFileModal<%= file.id %>" class="optionsFileModal">
                                         <div class="modal-content">
                                           <span class="close">&times;</span>
@@ -161,6 +164,7 @@
                                         </form>
                                         </div>
                                       </div>
+
                                 </td>
 
                                 <div id="editFileModal<%= file.id %>" class="modal edit">
@@ -246,8 +250,38 @@
                 // Open the options modal when the button is clicked
                 button.addEventListener('click', () => {
                     closeCurrentModal(); // Close any currently open modal
-                    optionsModal.style.display = 'block';
-                    currentModal = optionsModal;
+                    // Get the position of the clicked button
+                // Get the position of the clicked button
+                const buttonRect = button.getBoundingClientRect();
+                const modalRect = optionsModal.getBoundingClientRect();
+
+                // Calculate the desired position
+                let top = buttonRect.bottom + window.scrollY;
+                let left = buttonRect.left + window.scrollX;
+
+                // Adjust if modal goes off the bottom of the viewport
+                const viewportHeight = window.innerHeight;
+                const viewportWidth = window.innerWidth;
+
+                if (top + modalRect.height > viewportHeight + window.scrollY) {
+                    // If the modal will go off the bottom, position it above the button
+                    top = buttonRect.top + window.scrollY - modalRect.height;
+                }
+
+                // Adjust if modal goes off the side of the screen
+                if (left + modalRect.width > viewportWidth + window.scrollX) {
+                    // If the modal will go off the right side, shift it to the left
+                    left = buttonRect.right + window.scrollX - modalRect.width;
+                }
+
+                // Set the modal's position relative to the button
+                optionsModal.style.position = 'absolute';
+                optionsModal.style.left = `${left}px`;
+                optionsModal.style.top = `${top}px`;
+
+
+                optionsModal.style.display = 'block';
+                currentModal = optionsModal;
                 });
 
                 // Close the options modal when the 'X' is clicked
@@ -262,6 +296,34 @@
                 const fileId = button.getAttribute('data-file-id');
                 const optionsFileModal = document.getElementById(`optionsFileModal${fileId}`);
                 const optionsFileCloseBtn = optionsFileModal.querySelector('.close');
+
+                // Get the position of the clicked button
+                const buttonRect = button.getBoundingClientRect();
+                const modalRect = optionsFileModal.getBoundingClientRect();
+
+                // Calculate the desired position
+                let top = buttonRect.bottom + window.scrollY;
+                let left = buttonRect.left + window.scrollX;
+
+                // Adjust if modal goes off the bottom of the viewport
+                const viewportHeight = window.innerHeight;
+                const viewportWidth = window.innerWidth;
+
+                if (top + modalRect.height > viewportHeight + window.scrollY) {
+                    // If the modal will go off the bottom, position it above the button
+                    top = buttonRect.top + window.scrollY - modalRect.height;
+                }
+
+                // Adjust if modal goes off the side of the screen
+                if (left + modalRect.width > viewportWidth + window.scrollX) {
+                    // If the modal will go off the right side, shift it to the left
+                    left = buttonRect.right + window.scrollX - modalRect.width;
+                }
+
+                // Set the modal's position relative to the button
+                optionsFileModal.style.position = 'absolute';
+                optionsFileModal.style.left = `${left}px`;
+                optionsFileModal.style.top = `${top}px`;
 
                 // Open the options modal when the button is clicked
                 button.addEventListener('click', () => {
