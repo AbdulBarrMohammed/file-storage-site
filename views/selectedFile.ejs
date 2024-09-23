@@ -8,6 +8,24 @@
     <title>Document</title>
 </head>
 <body>
+    <div class="share-modal" id="share-modal">
+        <div class="share-modal-content">
+            <div class="share-modal-header">
+                <h2>Share file</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form class="contact-form" id="share-form">
+                <input class="email" type="email" id="recipient-email" placeholder="Email.." required />
+                <input class="name" type="text" id="sender-name" placeholder="Your Name" required />
+                <textarea class="msg" id="message" cols="5" rows="5" placeholder="Message..."></textarea>
+                <div>
+                    <button type="submit">Send</button>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
     <% if (user) {%>
         <header class="header">
             <div class="left-header">
@@ -55,12 +73,72 @@
             </div>
         </div>
 
+
+
+
+
     </div>
 
-    <script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+
+
+        const shareModal = document.getElementById('share-modal');
+        const shareBtn = document.querySelector(".share-btn");
+        shareBtn.addEventListener("click", ()=> {
+            shareModal.style.display = 'block';
+
+        })
+
+        window.onclick = function(event) {
+            if (event.target === shareModal) {
+                shareModal.style.display = 'none';
+
+            }
+
+
+        }
+
+        //SHARE OPERATIONS;
+        document.getElementById('share-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent form submission
+
+            // Get the recipient's email and message from the form
+            const recipientEmail = document.getElementById('recipient-email').value;
+            const message = document.getElementById('message').value;
+
+            // Get the file information
+            const file = document.getElementById('myFile');
+            const filePath = file.src;
+            const fileName = file.alt || 'file';
+            const senderEmail = "<%= user ? user.email : '' %>";
+            const senderName = document.getElementById('sender-name').value;
+
+            // Prepare the email template parameters
+            const templateParams = {
+                to_email: recipientEmail,  // Send the email to this address
+                email: senderEmail,   // Optionally include the sender's email
+                name: senderName,     // Optionally include the sender's name
+                message: message,          // User's message
+                file_url: filePath,        // Pass the file URL
+                file_name: fileName        // Pass the file name
+            };
+
+            // Send the email using EmailJS
+            emailjs.send('service_mju5ius', 'template_3ixf67f', templateParams, '6dPiaySdJ6aBtfDst')
+                .then(function(response) {
+                    alert('Email successfully sent to ' + recipientEmail + '!');
+                    shareModal.style.display = 'none';
+                }, function(error) {
+                    console.error('Failed to send email...', error);
+                });
+        });
+
+
         let downloadLinks = document.querySelectorAll('[data-download]');
 
         downloadLinks.forEach(button => {
+            //DOWNLOAD OPERATIONS
             const id = button.dataset.download
             const file = document.getElementById(id);
             const a = document.createElement('a');

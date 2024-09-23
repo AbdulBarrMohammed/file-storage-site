@@ -146,7 +146,7 @@
                          <% files.map((file, index) => { %>
                             <tr>
 
-                                <td> <a href="/library/file/<%= file.id %>">  <img src="/images/folder-outline.svg"> <%= file.name %> </a> </td>
+                                <td> <a href="/library/file/<%= file.id %>">  <img src="/images/file-hidden.svg"> <%= file.name %> </a> </td>
                                 <td> <%= file.blob %> </td>
                                 <td > <%= displayTimeAgo(file.createdAt) %> </td>
                                 <td> <%= displayTimeAgo(file.updatedAt) %> </td>

@@ -116,7 +116,7 @@
                                 <td> <%= displayTimeAgo(folder.createdAt) %> </td>
                                 <td> <%= displayTimeAgo(folder.updatedAt) %> </td>
                                 <td>
-                                    <button class="options-btn" data-folder-id="<%= folder.id %>">...</button>
+                                    <button class="options-btn" data-folder-id="<%= folder.id %>"> <img src="/images/dots-horizontal.svg"> </button>
                                     <div id="optionsModal<%= folder.id %>" class="optionsModal">
                                         <div class="modal-content">
                                           <span class="close">&times;</span>
@@ -157,7 +157,7 @@
 
                          <% subFiles.map((file, index) => { %>
                             <tr>
-                                <td> <a href="/library/file/<%= file.id %>">  <img src="/images/folder-outline.svg"> <%= file.name %> </a> </td>
+                                <td> <a href="/library/file/<%= file.id %>">  <img src="/images/file-hidden.svg"> <%= file.name %> </a> </td>
                                 <td> <%= file.blob %> </td>
                                 <td > <%= displayTimeAgo(file.createdAt) %> </td>
                                 <td> <%= displayTimeAgo(file.updatedAt) %> </td>

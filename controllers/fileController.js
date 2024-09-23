@@ -21,7 +21,7 @@ async function createFilePost(req, res, next) {
     const { email } = req.user;
 
     const fileType = req.file.mimetype;  // Get the file MIME type
-    console.log(fileType)
+
 
     // Determine resource type based on file MIME type
     let resourceType = "auto";  // Default to "auto" for dynamic handling
@@ -76,8 +76,6 @@ async function editSubFilePost(req, res) {
 async function getSelectedFile(req, res) {
     const id = req.params.id;
     const file = await db.getFile(id)
-    console.log('file path');
-    console.log(file.path);
     res.render(`views/selectedFile`, {user: req.user, file: file});
 }
 
@@ -104,9 +102,30 @@ async function deleteSubFilePost(req, res) {
 }
 
 async function addSubFilePost(req, res, next) {
+
+    const fileType = req.file.mimetype;  // Get the file MIME type
+
+
+    // Determine resource type based on file MIME type
+    let resourceType = "auto";  // Default to "auto" for dynamic handling
+    if (fileType === "application/pdf") {
+        resourceType = "raw";  // PDFs are treated as raw files
+    } else if (fileType.startsWith("image/")) {
+        resourceType = "image";  // Images should use "image" resource type
+    }
+
+    const results = await cloudinary.uploader.upload(req.file.path, {
+        resource_type: resourceType,
+
+    })
+    console.log('Cloudinary Upload Result:', results);
+    //const path = results.secure_url;
+    const url = results.secure_url;
+    let path = url.replace('/upload/', '/upload/pg_1/').replace('.pdf', '.jpg');
+
     const { email } = req.user;
     const folderId = req.params.id;
-    const { originalname, size, path} = req.file;
+    const { originalname, size} = req.file;
     const createdAt = new Date();
     await db.insertNewSubFile({originalname, size, createdAt, path, email, folderId})
 
@@ -126,16 +145,3 @@ module.exports =  {
 
 
   }
-
-  /*
-
-  {
-    fieldname: 'file',
-    originalname: 'indy.png',
-    encoding: '7bit',
-    mimetype: 'image/png',
-    destination: 'uploads/',
-    filename: '2a03118eaf0498b9069cb2d6f7212d5d',
-    path: 'uploads/2a03118eaf0498b9069cb2d6f7212d5d',
-    size: 2374883
-  } */
