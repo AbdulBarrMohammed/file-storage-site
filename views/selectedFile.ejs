@@ -64,7 +64,16 @@
             <div class="img-description">
                 <p>Uploaded at: <%- file.createdAt %></p>
                 <p>Updated at: <%- file.updatedAt %></p>
-                <p>Size: <%- file.blob %></p>
+                <%
+                    function formatBytes(bytes) {
+                        const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+                        if (bytes === 0) return '0 Bytes';
+                        const i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
+                        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+                    }
+                 %>
+
+                <p>Size: <%- formatBytes(file.blob) %></p>
                 <div class="img-buttons">
                     <button id= "myFile" class="button" data-download="myFile">Download</button>
                     <button class="share-btn">Share</button>
