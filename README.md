@@ -31,12 +31,10 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![walkthrough](https://github.com/AbdulBarrMohammed/Note/assets/106573767/078a112a-5c85-4bf3-92c0-2e3493d6d43d)
+![SortiFoxDemo](https://github.com/user-attachments/assets/a62ad81f-a04c-4b49-ad0e-0ce66dd5b8d8)
 
 
 <img src='walkthrough.gif' title='Video Walkthrough' width='60%' alt='Video Walkthrough' />
-
-GIF created with Adobe Express (https://new.express.adobe.com/tools/convert-to-gif).
 
 ## Notes
 
