@@ -39,7 +39,7 @@ Here's a walkthrough of implemented user stories:
 ## Notes
 
 I faced the challenge of storing files into cloudinary and retrieving the files to display it to the user. I also faced the challenge of figuring out a way that the user can download the file and 
-create a way for the user to send their files to others by email using jsdeliever
+create a way for the user to send their files to others by email using jsdeliever. I also had trouble figuring out a way to have files and folders be set under another folder using prisma data model.
 
 
 ## License
