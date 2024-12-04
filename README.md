@@ -31,17 +31,15 @@ The following **extensions** are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-![walkthrough](https://github.com/AbdulBarrMohammed/Note/assets/106573767/078a112a-5c85-4bf3-92c0-2e3493d6d43d)
+![SortiFoxDemo](https://github.com/user-attachments/assets/a62ad81f-a04c-4b49-ad0e-0ce66dd5b8d8)
 
 
 <img src='walkthrough.gif' title='Video Walkthrough' width='60%' alt='Video Walkthrough' />
 
-GIF created with Adobe Express (https://new.express.adobe.com/tools/convert-to-gif).
-
 ## Notes
 
 I faced the challenge of storing files into cloudinary and retrieving the files to display it to the user. I also faced the challenge of figuring out a way that the user can download the file and 
-create a way for the user to send their files to others by email using jsdeliever
+create a way for the user to send their files to others by email using jsdeliever. I also had trouble figuring out a way to have files and folders be set under another folder using prisma data model.
 
 
 ## License
