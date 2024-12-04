@@ -1,0 +1,30 @@
+Python 3.12.0rc1 (v3.12.0rc1:63bcd91dac, Aug  5 2023, 10:33:00) [Clang 13.0.0 (clang-1300.0.29.30)] on darwin
+Type "help", "copyright", "credits" or "license()" for more information.
+>>> 
+==================== RESTART: /Users/barrmohammed/Documents/lecture-04.py ====================
+Please input some text: 
+some text
+>>> 
+==================== RESTART: /Users/barrmohammed/Documents/lecture-04.py ====================
+Please input some text: 
+some text
+The text you inputted was: 
+some text
+>>> 
+==================== RESTART: /Users/barrmohammed/Documents/lecture-04.py ====================
+Enter your text here --->your text
+The text you inputted was: 
+your text
+>>> 
+==================== RESTART: /Users/barrmohammed/Documents/lecture-04.py ====================
+Enter a number to be squared: 2.5
+Your number squared is: 
+Traceback (most recent call last):
+  File "/Users/barrmohammed/Documents/lecture-04.py", line 3, in <module>
+    print(user_input ** 2)
+TypeError: unsupported operand type(s) for ** or pow(): 'str' and 'int'
+>>> 
+==================== RESTART: /Users/barrmohammed/Documents/lecture-04.py ====================
+Enter a number to be squared: 2.5
+Your number squared is: 
+6.25

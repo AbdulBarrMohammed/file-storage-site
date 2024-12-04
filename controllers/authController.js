@@ -108,7 +108,7 @@ const signUpPost = [
 
             console.log('User signed up successfully');
 
-            res.redirect("library");
+            res.redirect("/");
           } catch (dbError) {
             // Handle database insertion error
             return next(dbError);

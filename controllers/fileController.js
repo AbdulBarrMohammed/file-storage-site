@@ -13,37 +13,65 @@ cloudinary.config({
 
 //get image from cloudinary
 
-
-
-
 async function createFilePost(req, res, next) {
-    //res.send('Uploaded Successfully');
-    const { email } = req.user;
-
-    const fileType = req.file.mimetype;  // Get the file MIME type
 
 
-    // Determine resource type based on file MIME type
-    let resourceType = "auto";  // Default to "auto" for dynamic handling
-    if (fileType === "application/pdf") {
-        resourceType = "raw";  // PDFs are treated as raw files
-    } else if (fileType.startsWith("image/")) {
-        resourceType = "image";  // Images should use "image" resource type
+    try {
+            //res.send('Uploaded Successfully');
+        const { email } = req.user;
+
+        const fileType = req.file.mimetype;  // Get the file MIME type
+
+
+        // Determine resource type based on file MIME type
+        let resourceType = "auto";  // Default to "auto" for dynamic handling
+        if (fileType === "application/pdf") {
+            resourceType = "raw";  // PDFs are treated as raw files
+        } else if (fileType.startsWith("image/")) {
+            resourceType = "image";  // Images should use "image" resource type
+        }
+
+        if (fileType == "text/plain") {
+
+            //return res.status(400).json({ error: "Can't accept text files." });
+            return res.send(`
+                <script>
+                alert("Can't accept text files.");
+                window.history.back();
+                </script>
+            `);
+
+        }
+        else {
+            const results = await cloudinary.uploader.upload(req.file.path, {
+                resource_type: resourceType,
+
+            })
+            console.log('Cloudinary Upload Result:', results);
+            //const path = results.secure_url;
+            const url = results.secure_url;
+            let path = url.replace('/upload/', '/upload/pg_1/').replace('.pdf', '.jpg');
+
+
+            const { originalname, size } = req.file;
+            const createdAt = new Date();
+            await db.insertNewFile({originalname, size, path, createdAt, email})
+        }
+
+
+
+
+
+    } catch(err) {
+         return res.send(`
+        <script>
+          alert("Can't accept text files.");
+          window.history.back(); // Go back to the previous page
+        </script>
+      `);
+
     }
 
-    const results = await cloudinary.uploader.upload(req.file.path, {
-        resource_type: resourceType,
-
-    })
-    console.log('Cloudinary Upload Result:', results);
-    //const path = results.secure_url;
-    const url = results.secure_url;
-    let path = url.replace('/upload/', '/upload/pg_1/').replace('.pdf', '.jpg');
-
-
-    const { originalname, size } = req.file;
-    const createdAt = new Date();
-    await db.insertNewFile({originalname, size, path, createdAt, email})
     res.redirect("/library")
 
 }
